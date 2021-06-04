@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {% block content%}
+
+<center>
+    {% if my_answer %}
+    <div class="alert alert-{{ color }} alert-dismissible fade show" role="alert">
+        {{ my_answer }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    <h1>{{request.session.greeting}}, which state has this flag? </h1>
+    <!-- <p><img src="{{ flag.url }}" class="card-img-top img-fluid"></p> -->
+    <div class="container border border-dark border-2 rounded ">
+        <div class="row">
+            <div class="col">
+                <br>
+                <br><br>
+                <br>
+
+                <form action="{% url 'stateflag' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+
+                        <input type="text" class="form-control" placeholder="Type your answer here." name="stateflag_answer">
+
+                        <input type="hidden" name="old_flag" value="{{ flag }}">
+
+                        <input type="hidden" name="state_name" value="{{ state }}">
+
+                        <!-- added this to keep track of user's stats -->
+
+                        <input type="hidden" name="current_user" value="{{ request.session.greeting}}">
+
+                    </div>
+
+                    <br>
+                    <button type="submit" class="btn btn-secondary">Submit</button>
+                </form>
+
+            </div>
+            <!-- <div class="col">
+                if another column is  needed
+            </div> -->
+            <div class="col">
+                <br>
+                <p><img src="{{ flag.url }}" class="card-img-top img-fluid"></p>
+            </div>
+        </div>
+    </div>
+    <!-- <br>    ONCE DONE WITH DESIGN AND FUNCTIONALITY TESTING DELETE
+    <br>
+    <form action="{% url 'stateflag' %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+
+            <input type="text" class="form-control" placeholder="Type your answer here." name="stateflag_answer">
+
+            <input type="hidden" name="old_flag" value="{{ flag }}">
+
+            <input type="hidden" name="state_name" value="{{ state }}"> -->
+
+    <!-- added this to keep track of user's stats -->
+
+    <!-- <input type="hidden" name="current_user" value="{{ request.session.greeting}}">
+
+        </div>
+
+        <br>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form> -->
+</center>
+{% endblock %}

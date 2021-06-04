@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">L@L@</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            US States
+            </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'statestudy' %}">State Study</a></li>
+                        <li><a class="dropdown-item" href="{% url 'stateshape' %}">State Shape</a></li>
+                        <li><a class="dropdown-item" href="{% url 'stateflag' %}">State Flags</a></li>
+                        <li><a class="dropdown-item" href="{% url 'statecapitals' %}">State Capitals</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'home' %}">Dashboard</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Math
+            </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'addition' %}">Addition</a></li>
+                        <li><a class="dropdown-item" href="{% url 'subtraction' %}">Subtraction</a></li>
+                        <li><a class="dropdown-item" href="{% url 'multiplication' %}">Multiplication</a></li>
+                        <li><a class="dropdown-item" href="{% url 'division' %}">Division</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'home' %}">Dashboard</a></li>
+                    </ul>
+                </li>
+
+                <!-- ####################################################### WORD SCRAMBLE ########################################################### -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'word-scramble' %}" tabindex="-1" aria-disabled="true">Word Scramble</a>
+                </li>
+
+                <!-- ####################################################### begin- TO DO LINK for USER1 ########################################################### -->
+
+                {% if request.session.greeting == "Everett" %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'to-do' %}" tabindex="-1" aria-disabled="true">To Do List</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <!-- <a class="nav-link" href="{% url 'to-do' %}" tabindex="-1" aria-disabled="true">To Do List</a> -->
+                </li>
+                {% endif %}
+                <!-- ####################################################### end - TO DO LINK for USER1 ########################################################### -->
+            </ul>
+            <!-- #######################################################Search Bar ########################################################### -->
+            <form class="d-flex">
+                <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+                <a href="{% url 'logout' %}" class="btn btn-outline-success"> Logout</a>
+            </form>
+            <!-- #######################################################Search Bar ########################################################### -->
+        </div>
+    </div>
+</nav>

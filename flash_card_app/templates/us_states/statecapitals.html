@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content%}
+
+<center>
+    {% if my_answer %}
+    <div class="alert alert-{{ color }} alert-dismissible fade show" role="alert">
+        {{ my_answer }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    <h1>{{request.session.greeting}}, what is the capital of {{ state }}?</h1>
+    <br>
+    <br>
+    <form action="{% url 'statecapitals' %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+
+            <input type="text" class="form-control" placeholder="Type your answer here." name="statecapitals_answer">
+
+            <input type="hidden" name="old_state" value="{{ state }}">
+
+            <input type="hidden" name="state_capital" value="{{ capital }}">
+
+            <!-- added this to keep track of user's stats -->
+
+            <input type="hidden" name="current_user" value="{{ request.session.greeting}}">
+
+        </div>
+
+        <br>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
+</center>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %} {% block content%}
+
+
+<center>
+    <h1>{{request.session.greeting}}, To Do list.</h1>
+
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button> {{ message }}
+    </div>
+    {% endfor %} {% endif %}
+
+    <ul>
+
+        {% for things in list %}
+        <table class='table table-bordered table-striped'>
+            {% if things.user.first_name == request.session.greeting %} {% if things.completed %}
+            <tr>
+                <td>
+                    <p><s>{{ things.item }}</s></p>
+                </td>
+                <td>
+                    <p><s>Priority: {{ things.priority }}</s></p>
+                </td>
+                <td>
+                    <p><s>Born Date: {{ things.idea_date }}</s></p>
+                </td>
+                <td>
+                    <p><s>Due Date: {{ things.due_date }}</s></p>
+                </td>
+                <td>
+
+                    <form action="{% url 'not-completed' things.id %}" method="POST">
+                        {% csrf_token %}
+                        <center> <button class="btn btn-outline-secondary btn-sm ">Not Completed</button></center>
+                    </form>
+                </td>
+                <td>
+                    <form action="{% url 'todo-delete' things.id %}" method="POST">
+                        {% csrf_token %}
+                        <center> <button class="btn btn-outline-danger btn-sm ">Delete</button></center>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td>{{ things.item }} </td>
+
+                <td>
+                    <p>Priority: {{ things.priority }}</p>
+                </td>
+                <td>
+                    <p>Born Date: {{ things.idea_date }}</p>
+                </td>
+                <td>
+                    <p>Due Date: {{ things.due_date }}</p>
+                </td>
+
+                <td>
+
+                    <form action="{% url 'done' things.id %}" method="POST">
+                        {% csrf_token %}
+                        <center> <button class="btn btn-outline-secondary btn-sm ">Completed</button></center>
+                    </form>
+                </td>
+                <td>
+                    <form action="{% url 'todo-delete' things.id %}" method="POST">
+                        {% csrf_token %}
+                        <center> <button class="btn btn-outline-danger btn-sm ">Delete</button></center>
+                    </form>
+                </td>
+            </tr>
+            {% endif %} <br>{% endif %}
+        </table>
+        {% endfor %}
+    </ul>
+
+</center>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %} {% block content%}
+
+<center>
+    {% if my_answer %}
+    <div class="alert alert-{{ color }} alert-dismissible fade show" role="alert">
+        {{ my_answer }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    <h1>{{request.session.greeting}}, Can you guess the correct 8 letter word!</h1>
+    <br>
+    <a href="{% url 'word-scramble' %}" type="button" class="btn btn-outline-dark">Four Letter Words</a> <a href="{% url 'word-scramble-five' %}" type="button" class="btn btn-outline-dark">Five Letter Words</a>
+    <a href="{% url 'word-scramble-six' %}" type="button" class="btn btn-outline-dark">Six Letter Words</a> <a href="{% url 'word-scramble-seven' %}" type="button" class="btn btn-outline-dark">Seven Letter Words</a>
+    <br>
+    <br>
+    <h1>{{ shuffled_word }} </h1>
+    <br>
+    <br>
+    <form action="{% url 'word-scramble-eight' %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+
+            <input type="text" class="form-control" placeholder="Type your answer here." name="wordscramble_answer">
+
+            <input type="hidden" name="old_shuffled_word" value="{{ shuffled_word }}">
+
+            <input type="hidden" name="answer" value="{{ answer }}">
+
+            <!-- added this to keep track of user's stats -->
+
+            <input type="hidden" name="current_user" value="{{ request.session.greeting}}">
+
+        </div>
+
+        <br>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
+    <br>
+    <br>
+    <h4>Incorrect Guesses</h4>
+    <div class="form-floating" id='incorrect_guesses'>
+        {% for guess in request.session.incorrect_guesses reversed %}
+        <p>{{ guess }} </p>
+        {% endfor %}
+    </div>
+
+</center>
+<!-- # MERCY STEP -->
+<form action="{% url 'word-scramble-mercyeight' %}" method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <input type="hidden" name="answer" value="{{ answer }}">
+    </div>
+    <button type="submit" class="btn btn-link btn-sm">mercy</button>
+</form>
+
+{% endblock %}

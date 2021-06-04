@@ -1,0 +1,76 @@
+{% extends 'base.html' %} {% block content%}
+
+<center>
+    <h1>The Flash Card Dashboard</h1>
+</center>
+
+<h3>Welcome {{request.session.greeting}}</h3>
+
+
+<h1>Your Stats</h1>
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Total Correct Addition</th>
+            <th>Total Correct Subtraction</th>
+            <th>Total Correct Mulitplication</th>
+            <th>Total Correct Division</th>
+            <th>Total Correct State Capital</th>
+            <th>Total Correct State Flag</th>
+            <th>Total Correct State Shape</th>
+            <th>Total Correct Word Scrambler</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for one in user %} {% if request.session.greeting == one.first_name %}
+        <tr>
+            <td>{{ one.username }}</td>
+            <td>{{ one.add_count }}</td>
+            <td>{{ one.sub_count }}</td>
+            <td>{{ one.multi_count }}</td>
+            <td>{{ one.div_count }}</td>
+            <td>{{ one.capital_count }}</td>
+            <td>{{ one.flag_count }}</td>
+            <td>{{ one.shape_count }}</td>
+            <td>{{ one.word_scram_count }}</td>
+        </tr>
+        {% endif %} {% endfor %}
+    </tbody>
+</table>
+
+
+
+<h1>Everybody Stats: </h1>
+
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Total Correct Addition</th>
+            <th>Total Correct Subtraction</th>
+            <th>Total Correct Mulitplication</th>
+            <th>Total Correct Division</th>
+            <th>Total Correct State Capital</th>
+            <th>Total Correct State Flag</th>
+            <th>Total Correct State Shape</th>
+            <th>Total Correct Word Scrambler</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for individual in user %}
+        <tr>
+            <td>{{ individual.username }}</td>
+            <td>{{ individual.add_count }}</td>
+            <td>{{ individual.sub_count }}</td>
+            <td>{{ individual.multi_count }}</td>
+            <td>{{ individual.div_count }}</td>
+            <td>{{ individual.capital_count }}</td>
+            <td>{{ individual.flag_count }}</td>
+            <td>{{ individual.shape_count }}</td>
+            <td>{{ individual.word_scram_count }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br> {% endblock %}

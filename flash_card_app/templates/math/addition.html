@@ -1,0 +1,58 @@
+{% extends 'base.html' %} {% block content%}
+<center>
+    {% if my_answer %}
+    <div class="alert alert-{{ color }} alert-dismissible fade show" role="alert">
+        {{ my_answer }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    <h1>{{request.session.greeting}}, practice your LEVEL 1 additions.</h1>
+    <br>
+
+    <a href="{% url 'addition-lvl-two' %}" type="button" class="btn btn-outline-dark">Level 2</a> <a href="{% url 'addition-lvl-three' %}" type="button" class="btn btn-outline-dark">Level 3</a> <a href="{% url 'addition-lvl-four' %}" type="button" class="btn btn-outline-dark">Level 4</a>
+    <br>
+    <br>
+
+    <div class="container border border-dark border-2 rounded ">
+        <div class="row">
+            <div class="col">
+                <h3 class="card-title"></h3>
+                <h1>{{ add_num_1 }}</h1>
+            </div>
+            <div class="col">
+                <h1> + </h1>
+            </div>
+            <div class="col">
+                <h1>
+                    <h1>{{ add_num_2 }}</h1>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <form action="{% url 'addition' %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+
+            <input type="text" class="form-control" placeholder="Type your answer here." name="addition_answer">
+
+            <input type="hidden" name="old_add_num_1" value="{{ add_num_1 }}">
+
+            <input type="hidden" name="old_add_num_2" value="{{ add_num_2 }}">
+
+            <!-- added this to keep track of user's stats -->
+
+            <input type="hidden" name="current_user" value="{{ request.session.greeting}}">
+
+
+        </div>
+
+        <br>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
+
+</center>
+
+{% endblock %}

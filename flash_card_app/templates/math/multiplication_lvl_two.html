@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% block content%}
+
+<center>
+    {% if my_answer %}
+    <div class="alert alert-{{ color }} alert-dismissible fade show" role="alert">
+        {{ my_answer }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    <h1>{{request.session.greeting}}, practice your LEVEL 2 multiplications.</h1>
+    <br>
+    <a href="{% url 'multiplication' %}" type="button" class="btn btn-outline-dark">Level 1</a> <a href="{% url 'multiplication-lvl-three' %}" type="button" class="btn btn-outline-dark">Level 3</a> <a href="{% url 'multiplication-lvl-four' %}" type="button"
+        class="btn btn-outline-dark">Level 4</a>
+    <br>
+    <br>
+
+    <div class="container border border-dark border-2 rounded ">
+        <div class="row">
+            <div class="col">
+                <h3 class="card-title"></h3>
+                <h1>{{ mltp_num_1 }}</h1>
+            </div>
+            <div class="col">
+
+                <h1>*</h1>
+            </div>
+            <div class="col">
+
+                <h1>{{ mltp_num_2 }}</h1>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <form action="{% url 'multiplication-lvl-two' %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <input type="text" class="form-control" placeholder="Type your answer here." name="multiplication_answer">
+
+            <input type="hidden" name="old_mltp_num_1" value="{{ mltp_num_1 }}">
+
+            <input type="hidden" name="old_mltp_num_2" value="{{ mltp_num_2 }}">
+
+            <!-- added this to keep track of user's stats -->
+
+            <input type="hidden" name="current_user" value="{{ request.session.greeting}}">
+
+        </div>
+        <br>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
+</center>
+
+{% endblock %}

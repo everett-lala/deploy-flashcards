@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% block content%}
+
+<center>
+    {% if my_answer %}
+    <div class="alert alert-{{ color }} alert-dismissible fade show" role="alert">
+        {{ my_answer }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    <h1>{{request.session.greeting}}, which state has this shape? </h1>
+    <!-- <p><img src="{{ shape.url }}" class="card-img-top img-fluid"></p> -->
+
+    <div class="container border border-dark border-2 rounded ">
+        <div class="row">
+            <div class="col">
+                <br>
+                <br><br>
+                <br>
+                <form action="{% url 'stateshape' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+
+                        <input type="text" class="form-control" placeholder="Type your answer here." name="stateshape_answer">
+
+                        <input type="hidden" name="old_shape" value="{{ shape }}">
+
+                        <input type="hidden" name="state_name" value="{{ state }}">
+
+                        <!-- added this to keep track of user's stats -->
+
+                        <input type="hidden" name="current_user" value="{{ request.session.greeting}}">
+
+                    </div>
+
+                    <br>
+                    <button type="submit" class="btn btn-secondary">Submit</button>
+                </form>
+            </div>
+            <!-- <div class="col">
+
+            </div> -->
+
+            <div class="col">
+                <br>
+                <p><img src="{{ shape.url }}" class="card-img-top img-fluid"></p>
+            </div>
+
+        </div>
+    </div>
+
+</center>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block content%}
+
+<h1>{{request.session.greeting}}, study the U.S. States!</h1>
+
+<br>
+<a href="{% url 'statestudy-byname' %}" type="button" class="btn btn-outline-dark">Order By Name</a> <a href="{% url 'statestudy' %}" type="button" class="btn btn-outline-dark">Order By Statehood</a> <a href="{% url 'statestudy-random' %}" type="button"
+    class="btn btn-outline-dark">Radom Order</a>
+<br>
+<br> {% for sel_state in state %}
+
+<div class="container border border-dark border-2 rounded ">
+    <div class="row">
+        <div class="col">
+            <h3 class="card-title">{{sel_state.name}}</h3>
+            <p>State Capital: <strong>{{sel_state.capital }}</strong></p>
+            <p>Order of Statehood: <strong>{{ sel_state.order_statehood }} </strong></p>
+            <p>Date of Entry: <strong>{{ sel_state.date_of_entry }} </strong></p>
+        </div>
+        <div class="col">
+            <p><img src="{{ sel_state.flag.url }}" class="card-img-top img-fluid"></p>
+        </div>
+        <div class="col">
+            <p><img src="{{ sel_state.shape.url }}" class="card-img-top img-fluid"></p>
+        </div>
+    </div>
+</div>
+<br> {% endfor %} {% endblock %}

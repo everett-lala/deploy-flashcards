@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block content%}
+
+<center>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1>{{request.session.greeting}}, You guessed the correct word!</h1>
+    <br> {% if my_answer %}
+    <div class="alert alert-{{ color }} alert-dismissible fade show" role="alert">
+        <h1>{{ my_answer }} </h1>
+    </div>
+    {% endif %}
+
+    <br>
+    <form action="{% url 'word-scramble-five' %}">
+        {% csrf_token %}
+        <br>
+        <button type="submit" class="btn btn-secondary">Play Again</button>
+    </form>
+    <br>
+    <form action="{% url 'home' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-secondary">No, Thanks</button>
+    </form>
+    <br>
+    <br>
+</center>
+{% endblock %}

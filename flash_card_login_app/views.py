@@ -7,7 +7,7 @@ from django.http import JsonResponse
 
 
 def index(request):
-    return render(request, 'authentication\login.html')
+    return render(request, 'authentication/login.html')
 
 
 def register(request):
